@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title Ben Saufley | #{title}
+    link(rel="stylesheet" href="/styles/app.css")
+  body
+    header.page-header
+      h2
+        a(href="/") Ben Saufley
+      h3 Web Designer &amp; Developer
+      nav
+        a(href="/") Home
+        a(href="/about") About
+        a(href="/resume") Résumé
+
+    main!= contents
+
+    footer.page-footer
+      p
+        | Copyright ©#{new Date().getFullYear()} Ben Saufley.
+        |
+        a(href="mailto:contact@bensaufley.com") Contact
+        a(href="https://github.com/bensaufley/personal-website") View on Github
