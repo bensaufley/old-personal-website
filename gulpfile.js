@@ -2,14 +2,14 @@ const autoprefixer = require('gulp-autoprefixer'),
       babel = require('gulp-babel'),
       cleanCss = require('gulp-clean-css'),
       clean = require('gulp-clean'),
+      debug = require('gulp-debug'),
       gulp = require('gulp'),
-      gulpif = require('gulp-if'),
+      gulpIf = require('gulp-if'),
       layout = require('gulp-layout'),
       livereload = require('gulp-livereload'),
       markdown = require('gulp-markdown'),
       path = require('path'),
       pug = require('gulp-pug'),
-      pump = require('pump'),
       rename = require('gulp-rename'),
       through = require('through2'),
       sass = require('gulp-sass'),
@@ -17,41 +17,77 @@ const autoprefixer = require('gulp-autoprefixer'),
       uglify = require('gulp-uglify');
 
 const config = require('./config'),
-      pPump = require('./lib/promised-pump'),
       throughGrayMatter = require('./lib/through-gray-matter');
 
-const isType = (ext) => (file) => path.extname(file.relative) === ext,
-      slugify = (title) => {
-        return title
-          .trim()
-          .toLowerCase()
-          .replace(/('’)/g, '')
-          .replace(/[^a-z0-9]+/gi, '-')
-          .replace(/(^-|-$)/g, '');
+const createErrorHandler = () => (err) => {
+        console.error('Error in compress task', err.toString(), err.stack);
       },
-      viewStream = [
-        throughGrayMatter,
-        gulpif(isType('.md'), markdown()),
-        gulpif(isType('.pug'), pug()),
+      customPump = (pipes) => pipes.reduce((obj, fn) => obj.pipe(fn).on('error', createErrorHandler()));
+
+const isType = (ext) => (file) => path.extname(file.relative) === ext,
+      viewStream = () => ([
+        throughGrayMatter(),
+        gulpIf(isType('.md'), markdown()),
+        gulpIf(isType('.pug'), pug()),
         layout(({ frontMatter: data = {} }) => ({ data, layout: `source/layouts/${data.layout || config.defaultLayout}.pug` }))
-      ];
+      ]);
+
+Error.stackTraceLimit = Infinity;
 
 gulp.task('clean-pages', () => {
-  return gulp.src([
-    `${config.distDirectory}/*`,
-    `!${config.distDirectory}/*([0-9])/**/*`,
-    `!${config.distDirectory}/index.html`,
-    `!${config.distDirectory}/styles`,
-    `!${config.distDirectory}/scripts`,
-    `!${config.distDirectory}/images`
-  ])
-    .pipe(clean());
+  return customPump([
+    gulp.src([
+      `${config.distDirectory}/*`,
+      `!${config.distDirectory}/index.html`,
+      `!${config.distDirectory}/{blog,styles,scripts,images}/`
+    ]),
+    clean()
+  ]);
+});
+
+gulp.task('clean-posts', () => {
+  return customPump([
+    gulp.src([
+      `${config.distDirectory}/blog`,
+      `${config.distDirectory}/index.html`
+    ]),
+    clean()
+  ]);
+});
+
+gulp.task('clean-styles', () => {
+  return customPump([
+    gulp.src(`${config.distDirectory}/styles`),
+    clean()
+  ]);
+});
+
+gulp.task('clean-scripts', () => {
+  return customPump([
+    gulp.src(`${config.distDirectory}/scripts`),
+    clean()
+  ]);
+});
+
+gulp.task('clean-images', () => {
+  return customPump([
+    gulp.src(`${config.distDirectory}/images`),
+    clean()
+  ]);
+});
+
+gulp.task('clean', () => {
+  return customPump([
+    gulp.src(`${config.distDirectory}/*`),
+    clean()
+  ]);
 });
 
 gulp.task('pages', ['clean-pages'], () => {
-  return pPump([
+  return customPump([
     gulp.src('source/pages/**/*'),
-    ...viewStream,
+    debug({ title: 'pages' }),
+    ...viewStream(),
     rename((file) => {
       file.dirname = file.basename;
       file.basename = 'index';
@@ -60,26 +96,25 @@ gulp.task('pages', ['clean-pages'], () => {
   ]);
 });
 
-gulp.task('posts', () => {
+gulp.task('posts', ['clean-posts'], () => {
   const posts = {};
 
-  return pPump([
+  return customPump([
     gulp.src('source/posts/**/*'),
-    ...viewStream,
+    debug({ title: 'posts' }),
+    ...viewStream(),
     through((file, _, callback) => {
       if (!file.frontMatter.date) throw new Error('Posts need a date!');
-      const [year, month, day] = file.frontMatter.split('-').map((n) => n.length === 4 ? n : `0${n}`.substr(-2)),
-            slug = slugify(file.frontMatter.title);
-      [year, month, day].reduce((obj, n) => { obj[n] = obj[n] || {}; }, posts);
-      file.slug = slug;
+      const [year, month, day] = file.frontMatter.split('-').map((n) => n.length === 4 ? n : `0${n}`.substr(-2));
+      [year, month, day].reduce((obj, n) => obj[n] = obj[n] || {}, posts);
       file.date = { year, month, day };
-      posts[year][month][day][slug] = true;
+      posts[year][month][day][file.basename.replace('.html', '')] = true;
 
       callback(null, file);
     }),
     rename((file) => {
       const { year, month, day } = file.date;
-      file.dirname = `blog/${year}/${month}/${day}/${file.slug}`;
+      file.dirname = `blog/${year}/${month}/${day}/${file.basename.replace('.html', '')}`;
       file.basename = 'index';
     }),
     gulp.dest(config.distDirectory)
@@ -88,36 +123,36 @@ gulp.task('posts', () => {
 
 gulp.task('html', ['pages', 'posts']);
 
-gulp.task('styles', () => {
-  return pPump([
+gulp.task('styles', ['clean-styles'], () => {
+  return customPump([
     gulp.src([
       'source/assets/styles/**/*.scss',
       '!source/assets/styles/**/_*.scss'
     ]),
-    gulpif(process.env.NODE_ENV === 'development', sourceMaps.init()),
+    gulpIf(process.env.NODE_ENV === 'development', sourceMaps.init()),
     sass(),
     autoprefixer(),
     cleanCss(),
-    gulpif(process.env.NODE_ENV === 'development', sourceMaps.write()),
+    gulpIf(process.env.NODE_ENV === 'development', sourceMaps.write()),
     gulp.dest(`${config.distDirectory}/styles`),
     livereload()
   ]);
 });
 
-gulp.task('scripts', () => {
-  return pPump([
+gulp.task('scripts', ['clean-scripts'], () => {
+  return customPump([
     gulp.src('source/assets/scripts/**/*.js'),
-    gulpif(process.env.NODE_ENV === 'development', sourceMaps.init()),
+    gulpIf(process.env.NODE_ENV === 'development', sourceMaps.init()),
     babel(),
     uglify(),
-    gulpif(process.env.NODE_ENV === 'development', sourceMaps.write()),
+    gulpIf(process.env.NODE_ENV === 'development', sourceMaps.write()),
     gulp.dest(`${config.distDirectory}/scripts`),
     livereload()
   ].filter(Boolean));
 });
 
-gulp.task('images', () => {
-  return pPump([
+gulp.task('images', ['clean-images'], () => {
+  return customPump([
     gulp.src('source/assets/images/**/*'),
     gulp.dest(`${config.distDirectory}/images`),
     livereload()
@@ -128,10 +163,10 @@ gulp.task('assets', ['styles', 'scripts', 'images']);
 
 gulp.task('compile', ['assets', 'html']);
 
-gulp.task('watch', ['compile'], () => {
+gulp.task('watch', ['clean', 'compile'], () => {
   livereload.listen();
 
-  gulp.watch('source/assets/styles/**/*.sass', ['styles']);
+  gulp.watch('source/assets/styles/**/*.scss', ['styles']);
   gulp.watch('source/assets/scripts/**/*.js', ['scripts']);
   gulp.watch('source/assets/images/**/*', ['images']);
   gulp.watch('source/layouts/**/*', ['html']);
@@ -139,4 +174,4 @@ gulp.task('watch', ['compile'], () => {
   gulp.watch('source/posts/**/*', ['posts']);
 });
 
-gulp.task('default', ['compile']);
+gulp.task('default', ['clean', 'compile']);
