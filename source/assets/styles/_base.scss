@@ -45,6 +45,7 @@ p, ul, ol, blockquote {
   font-size: 1rem;
 }
 
+a,
 a:link {
   border-bottom: 1px dashed;
   color: $link-color;
@@ -61,5 +62,5 @@ a:link {
 
 main {
   margin: 0 auto;
-  max-width: 60rem;
+  max-width: 45rem;
 }

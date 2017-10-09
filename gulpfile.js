@@ -14,7 +14,8 @@ const autoprefixer = require('gulp-autoprefixer'),
       through = require('through2'),
       sass = require('gulp-sass'),
       sourceMaps = require('gulp-sourcemaps'),
-      uglify = require('gulp-uglify');
+      uglify = require('gulp-uglify'),
+      Vinyl = require('vinyl');
 
 const config = require('./config'),
       throughGrayMatter = require('./lib/through-gray-matter');
@@ -28,8 +29,7 @@ const isType = (ext) => (file) => path.extname(file.relative) === ext,
       viewStream = () => ([
         throughGrayMatter(),
         gulpIf(isType('.md'), markdown()),
-        gulpIf(isType('.pug'), pug()),
-        layout(({ frontMatter: data = {} }) => ({ data, layout: `source/layouts/${data.layout || config.defaultLayout}.pug` }))
+        gulpIf(isType('.pug'), pug())
       ]);
 
 Error.stackTraceLimit = Infinity;
@@ -48,7 +48,7 @@ gulp.task('clean-pages', () => {
 gulp.task('clean-posts', () => {
   return customPump([
     gulp.src([
-      `${config.distDirectory}/blog`,
+      `${config.distDirectory}/blog/`,
       `${config.distDirectory}/index.html`
     ]),
     clean()
@@ -88,11 +88,13 @@ gulp.task('pages', ['clean-pages'], () => {
     gulp.src('source/pages/**/*'),
     debug({ title: 'pages' }),
     ...viewStream(),
+    layout(({ frontMatter: data = {} }) => ({ data, layout: `source/layouts/${data.layout || config.defaultLayout}.pug` })),
     rename((file) => {
       file.dirname = file.basename;
       file.basename = 'index';
     }),
-    gulp.dest(config.distDirectory)
+    gulp.dest(config.distDirectory),
+    livereload()
   ]);
 });
 
@@ -103,21 +105,30 @@ gulp.task('posts', ['clean-posts'], () => {
     gulp.src('source/posts/**/*'),
     debug({ title: 'posts' }),
     ...viewStream(),
-    through((file, _, callback) => {
-      if (!file.frontMatter.date) throw new Error('Posts need a date!');
-      const [year, month, day] = file.frontMatter.split('-').map((n) => n.length === 4 ? n : `0${n}`.substr(-2));
-      [year, month, day].reduce((obj, n) => obj[n] = obj[n] || {}, posts);
-      file.date = { year, month, day };
-      posts[year][month][day][file.basename.replace('.html', '')] = true;
+    layout(({ frontMatter: data = {} }) => ({ data, layout: 'source/layouts/blog-post.pug' })),
+    through.obj((chunk, _, callback) => {
+      try {
+        if (!chunk.frontMatter.date) throw new Error('Posts need a date!');
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(chunk.frontMatter.date)) throw new Error('Frontmatter date improperly formatted!');
+        const [year, month, day] = chunk.frontMatter.date.split('-'),
+              slug = new Vinyl(chunk).basename.replace('.html', '');
+        [year, month, day].reduce((obj, n) => obj[n] = obj[n] || {}, posts);
+        chunk.frontMatter = { ...chunk.frontMatter, year, month, day };
+        posts[year][month][day][slug] = true;
 
-      callback(null, file);
+        const arr = chunk.path.split('/'),
+              root = arr.indexOf(path.basename(chunk.base));
+
+        arr[root + 1] = `blog/${year}/${month}/${day}/${slug}/index.html`;
+        chunk.path = arr.join('/');
+
+        callback(null, chunk);
+      } catch (err) {
+        callback(err);
+      }
     }),
-    rename((file) => {
-      const { year, month, day } = file.date;
-      file.dirname = `blog/${year}/${month}/${day}/${file.basename.replace('.html', '')}`;
-      file.basename = 'index';
-    }),
-    gulp.dest(config.distDirectory)
+    gulp.dest(config.distDirectory),
+    livereload()
   ]);
 });
 

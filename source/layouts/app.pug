@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Ben Saufley | #{title}
+    title Ben Saufley | #{data.title}
     link(rel="stylesheet" href="/styles/app.css")
     meta(name="viewport" content="width=device-width,initial-scale=1")
   body
@@ -14,7 +14,9 @@ html
         a(href="/resume") Résumé
         a(href="/contact") Contact
 
-    main!= contents
+    main
+      block content
+        != contents
 
     footer.page-footer
       p.
