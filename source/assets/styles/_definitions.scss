@@ -1,0 +1,15 @@
+$text-color: #333;
+$link-color: #533;
+$visited-link-color: #433;
+
+@function pow($number, $n) {
+  $value: 1;
+
+  @if $n > 0 {
+    @for $i from 1 through $n {
+      $value: $value * $number;
+    }
+  }
+
+  @return $value;
+}
