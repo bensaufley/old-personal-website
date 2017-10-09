@@ -8,6 +8,7 @@ const autoprefixer = require('gulp-autoprefixer'),
       layout = require('gulp-layout'),
       livereload = require('gulp-livereload'),
       markdown = require('gulp-markdown'),
+      moment = require('moment'),
       path = require('path'),
       pug = require('gulp-pug'),
       rename = require('gulp-rename'),
@@ -85,7 +86,7 @@ gulp.task('clean', () => {
 
 gulp.task('pages', ['clean-pages'], () => {
   return customPump([
-    gulp.src('source/pages/**/*'),
+    gulp.src('source/pages/**/*.*'),
     debug({ title: 'pages' }),
     ...viewStream(),
     layout(({ frontMatter: data = {} }) => ({ data, layout: `source/layouts/${data.layout || config.defaultLayout}.pug` })),
@@ -102,32 +103,36 @@ gulp.task('posts', ['clean-posts'], () => {
   const posts = {};
 
   return customPump([
-    gulp.src('source/posts/**/*'),
+    gulp.src('source/posts/**/*.*'),
     debug({ title: 'posts' }),
     ...viewStream(),
+    through.obj((chunk, _, callback) => {
+      try {
+        const timestamp = moment(chunk.frontMatter.date);
+        if (!timestamp.isValid()) throw new Error('Posts need a proper date!');
+        chunk.frontMatter.date = timestamp;
+        callback(null, chunk);
+      } catch (err) {
+        callback(err);
+      }
+    }),
     layout(({ frontMatter: data = {} }) => ({ data, layout: 'source/layouts/blog-post.pug' })),
     through.obj((chunk, _, callback) => {
       try {
-        if (!chunk.frontMatter.date) throw new Error('Posts need a date!');
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(chunk.frontMatter.date)) throw new Error('Frontmatter date improperly formatted!');
-        const [year, month, day] = chunk.frontMatter.date.split('-'),
-              slug = new Vinyl(chunk).basename.replace('.html', '');
+        const timestamp = chunk.frontMatter.date,
+              [year, month, day] = timestamp.format('YYYY-MM-DD').split('-');
         [year, month, day].reduce((obj, n) => obj[n] = obj[n] || {}, posts);
         chunk.frontMatter = { ...chunk.frontMatter, year, month, day };
-        posts[year][month][day][slug] = true;
+        posts[year][month][day][timestamp.format()] = path;
 
-        const arr = chunk.path.split('/'),
-              root = arr.indexOf(path.basename(chunk.base));
-
-        arr[root + 1] = `blog/${year}/${month}/${day}/${slug}/index.html`;
-        chunk.path = arr.join('/');
+        chunk.path = chunk.path.replace('.html', '/index.html');
 
         callback(null, chunk);
       } catch (err) {
         callback(err);
       }
     }),
-    gulp.dest(config.distDirectory),
+    gulp.dest(`${config.distDirectory}/blog`),
     livereload()
   ]);
 });

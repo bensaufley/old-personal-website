@@ -1,6 +1,6 @@
 ---
 title: New Site
-date: '2017-10-07'
+date: 2017-10-09T14:11:49-04:00
 ---
 
 My previous site was built in Wordpress and hadn't been updated for, really, a number of years. In the meantime I've been hard at work on my career, freelance work, and a bunch of side projects. The first step to updating all that is to get something more workable, so I put together this site. It will have its backlog of posts filled out soon from the Wordpress export, but right now it's pretty bare-bones.
