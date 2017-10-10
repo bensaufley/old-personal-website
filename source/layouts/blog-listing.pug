@@ -1,0 +1,7 @@
+article.post
+  header
+    h2
+      a(href=data.link)= data.title
+    time(datetime=data.date.format())= data.date.format('dddd, MMMM Do YYYY, h:mm:ss a')
+
+  != contents

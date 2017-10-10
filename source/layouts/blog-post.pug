@@ -4,6 +4,6 @@ block content
   article.post
     header
       h1!= data.title
-      time(datetime=data.date.format()) #{data.date.format('dddd, MMMM Do YYYY, h:mm:ss a')}
+      time(datetime=data.date.format())= data.date.format('dddd, MMMM Do YYYY, h:mm:ss a')
 
     != contents

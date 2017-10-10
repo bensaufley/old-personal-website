@@ -1,6 +1,21 @@
 article.post {
+  header h2 a,
+  header h2 a:visited,
+  header h2 a:link:visited {
+    color: $link-color;
+    border-bottom: 0;
+  }
+
   time {
     color: #777;
+    display: block;
     font-size: .875rem;
+    margin-top: -.5rem;
+  }
+
+  + article.post {
+    border-top: 1px solid transparentize($link-color, .9);
+    margin-top: 10px;
+    padding-top: 10px;
   }
 }

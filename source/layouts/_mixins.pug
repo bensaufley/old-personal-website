@@ -1,0 +1,21 @@
+mixin pagination(total, current)
+  -
+    pages = new Array(total).fill(null).map((_, i) => (
+        i === 0 ||
+        i === total - 1 ||
+        (i > current - 3 && i < current + 2)
+        ? i + 1
+        : null
+      ))
+      .filter((n, i, arr) => (
+        n !== null ||
+        arr[i - 1] !== null
+      ))
+  nav.pagination
+    each page in pages
+      if page === 1
+        a(href="/" class=(page === current ? 'current' : null)) 1
+      else if page === null
+        span …
+      else
+        a(href=`/blog/${page}/` class=(page === current ? 'current' : null))= page

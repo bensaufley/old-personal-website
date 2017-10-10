@@ -1,0 +1,11 @@
+extends app.pug
+include _mixins
+
+block content
+  h1 Blog
+
+  != contents
+
+  if data.pageCount > 1
+    +pagination(data.pageCount, data.currentPage)
+
