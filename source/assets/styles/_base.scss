@@ -74,8 +74,7 @@ main {
     background: linear-gradient(to bottom, rgba(0, 0, 0, .05), rgba(0, 0, 0, 0) 3em);
     display: grid;
     grid-column-gap: 10px;
-    grid-template-areas: "code main"
-                         "code footer";
+    -ms-grid-columns: 1fr 10px 1fr;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr auto;
     margin: -10px;
@@ -84,18 +83,25 @@ main {
 
     > .prettyprint {
       display: inline-block;
-      grid-area: code;
+      grid-column: 1;
+      grid-row-start: 1;
+      grid-row-end: 3;
+      -ms-grid-row-span: 3;
       font-size: .75rem;
       margin: 0;
       overflow-x: auto;
     }
 
     > main {
-      grid-area: main;
+      grid-column: 2;
+      -ms-grid-column: 3;
+      grid-row: 1;
     }
 
     > .page-footer {
-      grid-area: footer;
+      grid-column: 2;
+      -ms-grid-column: 3;
+      grid-row: 2;
     }
   }
 

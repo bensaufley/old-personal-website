@@ -4,6 +4,15 @@ html
     title Ben Saufley | #{data.title}
     link(rel="stylesheet" href="/styles/app.css")
     meta(name="viewport" content="width=device-width,initial-scale=1")
+    if process.env.NODE_ENV === 'production'
+      script(async src="https://www.googletagmanager.com/gtag/js?id=UA-7186972-1")
+      script.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-7186972-1');
+
   body
     header.page-header
       h2
@@ -11,6 +20,7 @@ html
       h3 Web Designer &amp; Developer
       nav
         a(href="/") Home
+        a(href="/projects") Projects
         a(href="/resume") Résumé
         a(href="/contact") Contact
 

@@ -131,7 +131,10 @@ gulp.task('styles', ['clean-styles'], () => {
     ]),
     gulpIf(process.env.NODE_ENV === 'development', sourceMaps.init()),
     sass(),
-    autoprefixer(),
+    autoprefixer({
+      grid: true,
+      remove: false
+    }),
     cleanCss(),
     gulpIf(process.env.NODE_ENV === 'development', sourceMaps.write()),
     gulp.dest(`${config.distDirectory}/styles`),
