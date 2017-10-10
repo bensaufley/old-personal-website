@@ -1,6 +1,16 @@
+$background: #333;
+$black: #000;
+$white: #fff;
+$pink: #ffa0a0;
+$lightyellow: #f0e68c;
+$skyblue: #87ceeb;
+$lightgreen: #98fb98;
+$darkred: #cd5c5c;
+$khaki: #bdb76b;
+$lightgray: #aeaeae;
+
 .prettyprint {
-  /* desert scheme ported from vim to google prettify */
-  background-color: #333;
+  background-color: $background;
   font-family: Menlo, Monaco, 'Courier New', monospace;
   font-weight: normal;
   font-size: .875rem;
@@ -11,63 +21,56 @@
 
   .nocode {
     background-color: none;
-    color: #000;
+    color: $black;
   }
 
   .str {
-    color: #ffa0a0;
+    color: $pink;
   }
 
-  /* string  - pink */
   .kwd {
-    color: #f0e68c;
+    color: $lightyellow;
     font-weight: bold;
   }
 
   .com {
-    color: #87ceeb;
+    color: $skyblue;
   }
 
-  /* comment - skyblue */
   .typ {
-    color: #98fb98;
+    color: $lightgreen;
   }
 
-  /* type  - lightgreen */
   .lit {
-    color: #cd5c5c;
+    color: $darkred;
   }
 
-  /* literal - darkred */
   .pun {
-    color: #fff;
+    color: $white;
   }
 
-  /* punctuation */
   .pln {
-    color: #fff;
+    color: $white;
   }
 
   /* plaintext */
   .tag {
-    color: #f0e68c;
+    color: $lightyellow;
     font-weight: bold;
   }
 
-  /* html/xml tag  - lightyellow */
   .atn {
-    color: #bdb76b;
+    color: $khaki;
     font-weight: bold;
   }
 
-  /* attribute name  - khaki */
   .atv {
-    color: #ffa0a0;
+    color: $pink;
   }
 
   /* attribute value - pink */
   .dec {
-    color: #98fb98;
+    color: $lightgreen;
   }
 
   /* decimal     - lightgreen */
@@ -76,16 +79,16 @@
   ol.linenums {
     margin-top: 0;
     margin-bottom: 0;
-    color: transparentize(#AEAEAE, 0.5);
+    color: transparentize($lightgray, 0.5);
 
     li:hover {
-      background-color: transparentize(#AEAEAE, .95);
+      background-color: transparentize($lightgray, .95);
     }
   }
 
   /* IE indents via margin-left */
   li.L4, li.L9 {
-    color: #AEAEAE;
+    color: $lightgray;
   }
 
   /* Alternate shading for lines */
