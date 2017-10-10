@@ -1,6 +1,6 @@
 {
   "name": "ben-saufley-dot-com",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Personal website for Ben Saufley",
   "main": "gulpfile.js",
   "repository": "https://github.com/bensaufley/personal-website",
