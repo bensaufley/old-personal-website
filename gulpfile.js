@@ -172,7 +172,8 @@ gulp.task('scraps', () => {
   return customPump([
     gulp.src([
       'source/.htaccess',
-      'source/favicon.ico'
+      'source/favicon.ico',
+      'source/browserconfig.xml'
     ]),
     gulp.dest(config.distDirectory),
     livereload()

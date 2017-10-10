@@ -8,7 +8,12 @@ html
     meta(name="keywords" content="web developer,full-stack engineer,senior web engineer,user experience,ux engineer,web designer")
     meta(name="description" content="Ben Saufley is a full-stack web developer and designer based out of Boston, MA, specializing in user experience and front-end technologies. He also talks too much about soccer.")
     meta(name="robots" content="index,follow")
-    link(rel="icon" href="/favicon.ico")
+    link(rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png")
+    link(rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png")
+    link(rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png")
+    link(rel="manifest" href="/images/icons/manifest.json")
+    link(rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#5bbad5")
+    meta(name="theme-color" content="#ffffff")
     if process.env.NODE_ENV === 'production'
       script(async src="https://www.googletagmanager.com/gtag/js?id=UA-7186972-1")
       script.
