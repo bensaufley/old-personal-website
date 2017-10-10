@@ -4,15 +4,19 @@ const autoprefixer = require('gulp-autoprefixer'),
       clean = require('gulp-clean'),
       debug = require('gulp-debug'),
       { sync: globSync } = require('glob'),
+      fs = require('fs'),
       gulp = require('gulp'),
       gulpIf = require('gulp-if'),
+      yaml = require('js-yaml'),
       layout = require('gulp-layout'),
       livereload = require('gulp-livereload'),
       markdown = require('gulp-markdown'),
       merge = require('merge-stream'),
       path = require('path'),
+      prompt = require('gulp-prompt'),
       pug = require('gulp-pug'),
       rename = require('gulp-rename'),
+      rsync = require('gulp-rsync'),
       runSequence = require('run-sequence'),
       sass = require('gulp-sass'),
       sourceMaps = require('gulp-sourcemaps'),
@@ -189,6 +193,30 @@ gulp.task('watch', ['compile'], () => {
   gulp.watch('source/layouts/**/*', ['html']);
   gulp.watch('source/pages/**/*', ['pages']);
   gulp.watch('source/posts/**/*', ['posts']);
+});
+
+gulp.task('deploy', ['compile'], () => {
+  if (process.env.NODE_ENV !== 'production') throw new Error('Only deploy Production code.');
+
+  const ftpCreds = yaml.safeLoad(fs.readFileSync('./.sftp.yml', 'utf-8'));
+
+  return customPump([
+    gulp.src(`${config.distDirectory}/**`),
+    prompt.confirm({
+      message: 'Are you SURE you want to deploy to production?',
+      default: false
+    }),
+    rsync({
+      progress: true,
+      incremental: true,
+      emptyDirectories: true,
+      recursive: true,
+      clean: true,
+      root: config.distDirectory,
+      ...ftpCreds
+    })
+  ]);
+
 });
 
 gulp.task('default', ['compile']);

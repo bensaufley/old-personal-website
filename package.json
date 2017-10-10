@@ -21,8 +21,10 @@
     "gulp-layout": "^0.0.4",
     "gulp-livereload": "^3.8.1",
     "gulp-markdown": "^1.2.0",
+    "gulp-prompt": "^0.2.0",
     "gulp-pug": "^3.3.0",
     "gulp-rename": "^1.2.2",
+    "gulp-rsync": "^0.0.8",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-uglify": "^3.0.0",
@@ -32,12 +34,14 @@
     "mz": "^2.7.0",
     "pryjs": "^1.0.3",
     "run-sequence": "^2.2.0",
+    "ssh2": "^0.5.5",
     "through2": "^2.0.3"
   },
   "engines": {
     "node": ">= 8.4.0"
   },
   "scripts": {
+    "deploy": "NODE_ENV=production gulp deploy",
     "new-post": "node ./lib/tasks/new-post.js",
     "serve": "node dev-server.js"
   }
