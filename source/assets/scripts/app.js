@@ -12,6 +12,8 @@
           flexBox = document.createElement('div'),
           preBlock = document.createElement('pre'),
           codeBlock = document.createElement('code'),
+          checkBox = document.createElement('input'),
+          labelTag = document.createElement('label'),
           main = document.getElementsByTagName('main')[0],
           footer = document.querySelector('.page-footer');
 
@@ -30,6 +32,15 @@
     flexBox.appendChild(footer);
 
     window.PR.prettyPrint();
+
+    checkBox.type = 'checkbox';
+    checkBox.id = 'show_code_view';
+    checkBox.checked = true;
+    labelTag.htmlFor = 'show_code_view';
+    labelTag.textContent = 'Show Code View';
+
+    document.body.insertBefore(checkBox, flexBox);
+    document.body.insertBefore(labelTag, flexBox);
   };
 
   const onReady = () => {
