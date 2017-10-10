@@ -159,27 +159,30 @@ gulp.task('scripts', ['clean-scripts'], () => {
 });
 
 gulp.task('images', ['clean-images'], () => {
-  const imagesStream = customPump([
+  return customPump([
     gulp.src('source/assets/images/**/*'),
     gulp.dest(`${config.distDirectory}/images`),
     livereload()
   ]);
-
-  const faviconStream = customPump([
-    gulp.src('source/favicon.ico'),
-    gulp.dest(config.distDirectory),
-    livereload()
-  ]);
-
-  return merge(imagesStream, faviconStream);
 });
 
 gulp.task('assets', ['styles', 'scripts', 'images']);
 
+gulp.task('scraps', () => {
+  return customPump([
+    gulp.src([
+      'source/.htaccess',
+      'source/favicon.ico'
+    ]),
+    gulp.dest(config.distDirectory),
+    livereload()
+  ]);
+});
+
 gulp.task('compile', (cb) => {
   return runSequence(
     'clean',
-    ['assets', 'html'],
+    ['assets', 'html', 'scraps'],
     cb
   );
 });
