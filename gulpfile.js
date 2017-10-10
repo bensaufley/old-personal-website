@@ -155,11 +155,19 @@ gulp.task('scripts', ['clean-scripts'], () => {
 });
 
 gulp.task('images', ['clean-images'], () => {
-  return customPump([
+  const imagesStream = customPump([
     gulp.src('source/assets/images/**/*'),
     gulp.dest(`${config.distDirectory}/images`),
     livereload()
   ]);
+
+  const faviconStream = customPump([
+    gulp.src('source/favicon.ico'),
+    gulp.dest(config.distDirectory),
+    livereload()
+  ]);
+
+  return merge(imagesStream, faviconStream);
 });
 
 gulp.task('assets', ['styles', 'scripts', 'images']);
