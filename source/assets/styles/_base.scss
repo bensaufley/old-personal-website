@@ -1,9 +1,5 @@
 html {
-  font-size: 75%;
-
-  @media screen and (min-width: 45em) {
-    font-size: 100%;
-  }
+  font-size: 100%;
 }
 
 body {
@@ -25,7 +21,7 @@ h6 {
 @for $i from 1 through 4 {
   $power: 4 - $i + 1;
   h#{$i} {
-    font-size: #{pow(1.1, $power)}em;
+    font-size: #{pow(1.1, $power)}rem;
 
     @media screen and (min-width: 47.5em) {
       font-size: #{pow(1.15, $power)}rem;
@@ -39,6 +35,11 @@ h6 {
 
 h5, h6 {
   font-size: 1rem;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid $visited-link-color;
 }
 
 p, ul, ol, blockquote {

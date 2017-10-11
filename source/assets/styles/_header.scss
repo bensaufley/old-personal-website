@@ -8,12 +8,21 @@
   padding: 10px;
 
   h2, h3 {
-    line-height: 2rem;
+    line-height: 1.4rem;
     margin: 0;
+
+    @media screen and (min-width: 25em) {
+      line-height: 2rem;
+    }
   }
 
   h2 {
+    font-size: 1rem;
     grid-column: 1;
+
+    @media screen and (min-width: 25em) {
+      font-size: 1.331rem;
+    }
 
     a,
     a:link {
@@ -30,9 +39,14 @@
   }
 
   h3 {
+    font-size: 1rem;
     grid-column: 2;
     -ms-grid-column: 3;
     text-align: right;
+
+    @media screen and (min-width: 25em) {
+      font-size: 1.21rem;
+    }
   }
 
   nav {
