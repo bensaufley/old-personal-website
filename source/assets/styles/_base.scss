@@ -60,12 +60,47 @@ a:link {
     color: $visited-link-color;
   }
 
-  &:hover {
+  &:hover,
+  &:focus  {
     border-bottom-style: solid;
+  }
+
+  img {
+    display: block;
+
+    &,
+    &:hover,
+    &:focus {
+      border-bottom :0;
+    }
   }
 }
 
 main {
   margin: 0 auto;
   max-width: 45rem;
+}
+
+img {
+  display: block;
+
+  &.thumb {
+    height: auto;
+    width: 150px;
+  }
+
+  &.align-center {
+    float: none;
+    margin: 10px auto;
+  }
+
+  &.align-left {
+    float: left;
+    margin-right: 10px;
+  }
+
+  &.align-right {
+    float: right;
+    margin-right: 10px;
+  }
 }

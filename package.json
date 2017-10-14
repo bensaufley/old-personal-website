@@ -26,6 +26,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-rsync": "^0.0.8",
     "gulp-sass": "^3.1.0",
+    "gulp-sort": "^2.0.0",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-uglify": "^3.0.0",
     "merge-stream": "^1.0.1",

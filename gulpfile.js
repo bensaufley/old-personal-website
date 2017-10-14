@@ -19,6 +19,7 @@ const autoprefixer = require('gulp-autoprefixer'),
       rsync = require('gulp-rsync'),
       runSequence = require('run-sequence'),
       sass = require('gulp-sass'),
+      sort = require('gulp-sort'),
       sourceMaps = require('gulp-sourcemaps'),
       uglify = require('gulp-uglify');
 
@@ -35,10 +36,11 @@ const cleanSets = {
         pages: [
           `${config.distDirectory}/*`,
           `!${config.distDirectory}/index.html`,
+          `!${config.distDirectory}/20[0-9][0-9]/`,
           `!${config.distDirectory}/{blog,styles,scripts,images}/`
         ],
         posts: [
-          `${config.distDirectory}/blog/`,
+          `${config.distDirectory}/20[0-9][0-9]/`,
           `${config.distDirectory}/index.html`
         ],
         styles: `${config.distDirectory}/styles`,
@@ -93,14 +95,14 @@ gulp.task('individual-posts', ['clean-posts'], () => {
     posts.parseDate(),
     layout(({ frontMatter: data = {} }) => ({ data, layout: 'source/layouts/blog-post.pug' })),
     posts.renameSinglePost(),
-    gulp.dest(`${config.distDirectory}/blog`),
+    gulp.dest(config.distDirectory),
     livereload()
   ]);
 });
 
 gulp.task('posts', ['clean-posts', 'individual-posts'], () => {
   const perPage = 5,
-        pageCount = Math.ceil(globSync('dist/blog/[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]/*').length / perPage);
+        pageCount = Math.ceil(globSync('dist/[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]/*').length / perPage);
 
   return customPump([
     gulp.src('source/posts/**/*.*'),
@@ -108,11 +110,16 @@ gulp.task('posts', ['clean-posts', 'individual-posts'], () => {
     posts.excerpt(),
     ...viewStream(),
     posts.parseDate(),
+    sort((file1, file2) => {
+      if (file1.frontMatter.date < file2.frontMatter.date) return 1;
+      if (file1.frontMatter.date > file2.frontMatter.date) return -1;
+      return 0;
+    }),
     layout((file) => {
       const data = file.frontMatter,
             ext = path.extname(file.path),
             link = file.path.substr(file.base.length, file.path.length - file.base.length - ext.length);
-      return { data: { ...data, link: `/blog/${link}/` }, layout: 'source/layouts/blog-listing.pug' };
+      return { data: { ...data, link: `/${link}/` }, layout: 'source/layouts/blog-listing.pug' };
     }),
     posts.paginate(perPage),
     debug({ title: 'posts.paginated' }),

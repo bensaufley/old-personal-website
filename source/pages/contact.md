@@ -10,4 +10,5 @@ You can contact me by email at [contact@bensaufley.com](mailto:contact@bensaufle
 - **Facebook Page**: [bensaufley](https://facebook.com/bensaufley)
 - **GitHub**: [@bensaufley](https://github.com/bensaufley)
 - **LinkedIn**: [in/bensaufley](https://www.linkedin.com/in/bensaufley)
+- **StackOverflow**: [bensaufley](https://stackoverflow.com/story/bensaufley)
 - **Twitter**: [@bensaufley](https://twitter.com/bensaufley)
