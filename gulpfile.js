@@ -50,6 +50,7 @@ const cleanSets = {
       isType = (ext) => (file) => path.extname(file.relative) === ext,
       viewStream = () => ([
         throughGrayMatter(),
+        gulpIf(isType('.md'), posts.extractFootnotes()),
         gulpIf(isType('.md'), markdown()),
         gulpIf(isType('.pug'), pug())
       ]);
