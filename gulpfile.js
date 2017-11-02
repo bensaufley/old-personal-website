@@ -75,7 +75,7 @@ gulp.task('clean', () => {
 
 gulp.task('pages', ['clean-pages'], () => {
   return customPump([
-    gulp.src('source/pages/**/*.*'),
+    gulp.src(['source/pages/**/*.*', '!source/pages/bits/**/*']),
     debug({ title: 'pages' }),
     ...viewStream(),
     layout(({ frontMatter: data = {} }) => ({ data, layout: `source/layouts/${data.layout || config.defaultLayout}.pug` })),
