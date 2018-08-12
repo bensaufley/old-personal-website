@@ -2,7 +2,7 @@
 title: Résumé
 ---
 
-# Résumé <small>([pdf](/images/2017-10-resume-ben-saufley.pdf))</small>
+# Résumé <small>([pdf](/images/2018-08-resume-ben-saufley.pdf))</small>
 
 ## Experience
 
@@ -10,6 +10,7 @@ title: Résumé
 **Director of UX Engineering** _Cambridge, MA_
 
 Previously:
+
 - **Technical Lead, UX** _Jan 2015 – Aug 2017_
 - **Web Designer & Front-End Developer** _2013 – Jan 2015_
 
@@ -34,10 +35,10 @@ Sole in-house developer and digital designer, working in collaboration with prin
 
 ## Skills
 
-**Languages:** Proficient in Ruby, Node.js, PHP, MySQL, Postgres, HTML (HAML, Pug, Slim), CSS (SASS), ES5/ES6+ (Babel), and shell. Experience with Swift, LESS, and MongoDB.
+**Languages:** Proficient in Ruby, Node.js, TypeScript, PHP, MySQL, Postgres, HTML (HAML, Pug, Slim), CSS (SASS), ES5/ES6+ (Babel), and shell. Experience with Go, Swift, LESS, and MongoDB.
 
-**Frameworks and Libraries:** Proficient in Ruby on Rails, Rspec/Capybara, Webpack, React/JSX, Redux, Sequelize, Mocha/Chai, jQuery, Wordpress, Express.js and Sinatra. Experience with Backbone.js and Meteor.
+**Frameworks and Libraries:** Proficient in Ruby on Rails, Rspec/Capybara, Webpack, Next.js, React/JSX, Redux, Sequelize, Mocha/Chai, jQuery, Wordpress, Express.js and Sinatra. Experience with Backbone.js and Meteor.
 
-**Software:** Proficient in Adobe Creative Cloud suite, Sketch, Git, Windows and Mac environments. Develop in Visual Studio Code, RubyMine, and
-Xcode for Swift. Office suites are no problem. Use vim when handy, but
-no hjkl – arrow keys exist for a reason.
+**Software:** Proficient in Adobe Creative Cloud suite, Sketch, Git, Windows and Mac environments. Develop in Visual Studio Code, RubyMine, and Xcode for Swift. Office suites are no problem. Use vim when handy, but no hjkl – arrow keys exist for a reason.
+
+References availablue [upon request](/contact)
