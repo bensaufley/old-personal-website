@@ -79,12 +79,27 @@ $lightgray: #aeaeae;
 
   /* Specify class=linenums on a pre to get line numbering */
   ol.linenums {
-    margin-top: 0;
-    margin-bottom: 0;
     color: transparentize($lightgray, 0.5);
+    counter-reset: prettyprint;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
     li:hover {
       background-color: transparentize($lightgray, .95);
+    }
+
+    li {
+      counter-increment: prettyprint;
+
+      &::before {
+        box-sizing: border-box;
+        content: counter(prettyprint);
+        display: inline-block;
+        text-align: right;
+        padding-right: .5rem;
+        width: 2.5rem;
+      }
     }
   }
 
