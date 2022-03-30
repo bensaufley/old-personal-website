@@ -213,6 +213,16 @@ gulp.task(
 
     return customPump([
       gulp.src(`${config.distDirectory}/**`),
+      rsync({
+        progress: true,
+        incremental: true,
+        emptyDirectories: true,
+        recursive: true,
+        clean: true,
+        dryrun: true,
+        root: config.distDirectory,
+        ...ftpCreds,
+      }),
       prompt.confirm({
         message: 'Are you SURE you want to deploy to production?',
         default: false,
