@@ -2,6 +2,14 @@
 title: Projects
 ---
 
+## Audiobook Catalog
+
+- [GitHub Repo](https://github.com/bensaufley/audiobook-catalog)
+
+A Docker image intended for use with [Unraid](https://www.unraid.net/) providing a UI for viewing and managing audiobooks. I listen to a lot of audiobooks, from many sources, and I have a pretty large library, so this was a pet project to allow me to see them all in one place while at home, and download them directly to my phone as I wanted. It's a work in progress that will also include things like "to read"/"read" and genre sorting.
+
+---
+
 ## [Midnight Riders Member Portal](https://members.midnightriders.com)
 
 - **[GitHub Repo](https://github.com/MidnightRiders/MemberPortal)**

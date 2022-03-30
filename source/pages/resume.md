@@ -2,14 +2,16 @@
 title: Résumé
 ---
 
-# Résumé <small>([pdf](/images/2018-08-resume-ben-saufley.pdf))</small>
+# Résumé <small>([pdf](/images/2022-03-resume-ben-saufley.pdf))</small>
 
 ## Experience
 
 **[Triplebyte](https://triplebyte.com)** _2021 – Present_  
 **Software Engineer** _Remote_
 
-<p style="text-align: center;">&bullet;</p>
+Part of a small team of experienced full-stack product engineers in a cross-disciplinary squad that works to conceive, build, ship, analyze, and refine new features for the developing Screen product in Ruby on Rails and React.
+
+<p style="text-align: center;">~</p>
 
 **[EverQuote, Inc](https://everquote.com)** _2013 – 2021_  
 **Principal Engineer** _Cambridge, MA_ &rarr; _Remote (Aug 2019)_
@@ -20,14 +22,14 @@ Previously:
 - **Technical Lead, UX** _Jan 2015 – Aug 2017_
 - **Web Designer & Front-End Developer** _2013 – Jan 2015_
 
-Managing and developing alongside the team of engineers responsible for building and maintaining the user experience across EverQuote's range of consumer-facing, business-facing, and internal applications. Responsible for code review, establishment and maintenance of code quality standards, project planning and execution, and working closely with other teams and company leadership to build full-stack implementations for short-term and long-term business opportunities.
+Software engineer, beginning as a designer/developer and growing into a full-stack subject matter expert for a large portion of the company’s consumer-facing infrastructure. Provided technical leadership, code review and standards, career growth support, and architectural leadership. Lead the development of two microservices that replaced the front end of the Rails monolith, significantly improving performance, using Go and React with TypeScript; and helped to lay the foundations and launch Kotlin-based third-party APIs with embeddable React widgets.
 
-<p style="text-align: center;">&bullet;</p>
+<p style="text-align: center;">~</p>
 
 **Millennium Partners Sports Club Management, LLC** _2009 – 2013_  
 **Online Marketing Designer & Developer** _Boston, MA_
 
-Sole in-house developer and digital designer, working in collaboration with print designer. Designing, developing, and sending thousands of emails per week to club members, employees, and prospects, in addition to developing, maintaining and improving web pages and web applications in PHP and HTML. Creating and maintaining MySQL-backed web applications for a number of purposes including member communications and class scheduling. Also involved in video production and other design and marketing efforts.
+Sole in-house developer and digital designer, working in collaboration with print designer. Designed, developed, and sent thousands of emails per week to club members, employees, and prospects, in addition to developing, maintaining and improving web pages and web applications. Created and maintained database-backed web applications for a number of purposes including member communications and class scheduling.
 
 ---
 
@@ -43,10 +45,10 @@ Sole in-house developer and digital designer, working in collaboration with prin
 
 ## Skills
 
-**Languages:** Proficient in Ruby, Node.js, TypeScript, PHP, MySQL, Postgres, HTML (HAML, Pug, Slim), CSS (SASS), ES5/ES6+ (Babel), and shell. Experience with Go, Swift, LESS, and MongoDB.
+**Languages:** Proficient in Go, Node.js, TypeScript/JavaScript, MySQL, Postgres, HTML (HAML, Pug, Slim), CSS (SASS, PostCSS), PHP, Ruby, and shell. Experience with Kotlin, Java, Swift and MongoDB.
 
-**Frameworks and Libraries:** Proficient in Ruby on Rails, Rspec/Capybara, Webpack, Next.js, React/JSX, Redux, Sequelize, Mocha/Chai, jQuery, Wordpress, Express.js and Sinatra. Experience with Backbone.js and Meteor.
+**Frameworks and Libraries:** Proficient in Webpack and Babel, React/Preact/JSX, Styled Components, Redux, Jest, Next.js, Mocha/Chai, jQuery, Ruby on Rails, Rspec/Capybara, Wordpress, Express.js and Sinatra. Experience in Spring and Ktor.
 
-**Software:** Proficient in Adobe Creative Cloud suite, Sketch, Git, Windows and Mac environments. Develop in Visual Studio Code, RubyMine, and Xcode for Swift. Office suites are no problem. Use vim when handy, but no hjkl – arrow keys exist for a reason.
+**Software:** Proficient in Adobe Creative Cloud suite, Sketch, Figma, Git, Windows and Mac environments, Docker and Kubernetes, AWS and GCP. Develop in Visual Studio Code, RubyMine, and Xcode for Swift. Analytics in DataDog and Grafana via Prometheus. Office suites are no problem. Use vim when handy, but no hjkl – arrow keys exist for a reason.
 
 References availablue [upon request](/contact)
