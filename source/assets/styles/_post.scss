@@ -9,12 +9,12 @@ article.post {
   time {
     color: #777;
     display: block;
-    font-size: .875rem;
-    margin-top: -.5rem;
+    font-size: 0.875rem;
+    margin-top: -0.5rem;
   }
 
   + article.post {
-    border-top: 1px solid transparentize($link-color, .9);
+    border-top: 1px solid transparentize($link-color, 0.9);
     margin-top: 10px;
     padding-top: 10px;
   }

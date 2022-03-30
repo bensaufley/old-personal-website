@@ -37,7 +37,8 @@ h6 {
   }
 }
 
-h5, h6 {
+h5,
+h6 {
   font-size: 1rem;
 }
 
@@ -46,11 +47,15 @@ hr {
   border-top: 1px solid $visited-link-color;
 }
 
-p, ul, ol, blockquote {
+p,
+ul,
+ol,
+blockquote {
   font-size: 1rem;
 }
 
-b, strong {
+b,
+strong {
   font-weight: 700;
 }
 
@@ -65,7 +70,7 @@ a:link {
   }
 
   &:hover,
-  &:focus  {
+  &:focus {
     border-bottom-style: solid;
   }
 
@@ -75,7 +80,7 @@ a:link {
     &,
     &:hover,
     &:focus {
-      border-bottom :0;
+      border-bottom: 0;
     }
   }
 }

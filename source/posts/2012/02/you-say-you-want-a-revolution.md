@@ -24,7 +24,6 @@ I didn't round it out, because I knew I wasn't going to use it as the final vers
 - The theme of sixes, representing the six states
 - The soccer ball[ref]I went back and forth on whether to include this, and decided it should be there, partially as a nod to the current logo and partially to distinguish the logo out of context. The Revs aren't the only team in the league that feature a soccer ball in their logo.[/ref]
 
-
 The most glaring omission was the team's name. I decided to save what I'd done and head in a different direction – something a bit more sleek and “modern,” more MLS-friendly.
 
 [<img src="/images/2012/02/Crest-2.jpg" alt="The shield emerges" class="thumb align-center" />](/images/2012/02/Crest-2.jpg)

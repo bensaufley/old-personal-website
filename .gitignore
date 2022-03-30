@@ -1,3 +1,6 @@
 node_modules
-dist
+dist/*
+!dist/.keep
 .sftp.yml
+yarn-error.log
+!.vscode/settings.json

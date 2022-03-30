@@ -4,19 +4,19 @@ nav.pagination {
 
   a,
   span {
-    background: transparentize($link-color, .5);
+    background: transparentize($link-color, 0.5);
     border: 0;
     border-radius: 3px;
     color: #fff;
     display: inline-block;
-    font-size: .875rem;
+    font-size: 0.875rem;
     line-height: 2;
-    padding: 0 .75em;
-    transition: .3s background;
+    padding: 0 0.75em;
+    transition: 0.3s background;
 
     + a,
     + span {
-      margin-left: .25em;
+      margin-left: 0.25em;
     }
   }
 
@@ -28,7 +28,7 @@ nav.pagination {
 
     &:hover,
     &:focus {
-      background: transparentize($link-color, .25);
+      background: transparentize($link-color, 0.25);
     }
   }
 

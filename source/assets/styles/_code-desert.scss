@@ -13,12 +13,12 @@ $lightgray: #aeaeae;
   background-color: $background;
   font-family: Menlo, Monaco, 'Courier New', monospace;
   font-weight: normal;
-  font-size: .875rem;
+  font-size: 0.875rem;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 
   * {
-    font-size: .75rem;
+    font-size: 0.75rem;
   }
 
   .nocode {
@@ -86,7 +86,7 @@ $lightgray: #aeaeae;
     padding: 0;
 
     li:hover {
-      background-color: transparentize($lightgray, .95);
+      background-color: transparentize($lightgray, 0.95);
     }
 
     li {
@@ -97,64 +97,80 @@ $lightgray: #aeaeae;
         content: counter(prettyprint);
         display: inline-block;
         text-align: right;
-        padding-right: .5rem;
+        padding-right: 0.5rem;
         width: 2.5rem;
       }
     }
   }
 
   /* IE indents via margin-left */
-  li.L4, li.L9 {
+  li.L4,
+  li.L9 {
     color: $lightgray;
   }
 
   /* Alternate shading for lines */
-  li.L1, li.L3, li.L5, li.L7, li.L9 {}
+  li.L1,
+  li.L3,
+  li.L5,
+  li.L7,
+  li.L9 {
+  }
 
   @media print {
     background-color: none;
 
-    .str, code .str {
+    .str,
+    code .str {
       color: #060;
     }
 
-    .kwd, code .kwd {
+    .kwd,
+    code .kwd {
       color: #006;
       font-weight: bold;
     }
 
-    .com, code .com {
+    .com,
+    code .com {
       color: #600;
       font-style: italic;
     }
 
-    .typ, code .typ {
+    .typ,
+    code .typ {
       color: #404;
       font-weight: bold;
     }
 
-    .lit, code .lit {
+    .lit,
+    code .lit {
       color: #044;
     }
 
-    .pun, code .pun {
+    .pun,
+    code .pun {
       color: #440;
     }
 
-    .pln, code .pln {
+    .pln,
+    code .pln {
       color: #000;
     }
 
-    .tag, code .tag {
+    .tag,
+    code .tag {
       color: #006;
       font-weight: bold;
     }
 
-    .atn, code .atn {
+    .atn,
+    code .atn {
       color: #404;
     }
 
-    .atv, code .atv {
+    .atv,
+    code .atv {
       color: #060;
     }
   }

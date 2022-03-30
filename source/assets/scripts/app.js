@@ -1,21 +1,21 @@
 {
-  'use strict';
-
   const buildCodeView = () => {
     document.documentElement.classList.add('js');
 
-    const docHtml = window.html_beautify(document.documentElement.outerHTML, {
-            indent_inner_html: true,
-            indent_size: 2,
-            wrap_line_length: 0
-          }).replace(/<br>/gmi, '\n'),
-          flexBox = document.createElement('div'),
-          preBlock = document.createElement('pre'),
-          codeBlock = document.createElement('code'),
-          checkBox = document.createElement('input'),
-          labelTag = document.createElement('label'),
-          main = document.getElementsByTagName('main')[0],
-          footer = document.querySelector('.page-footer');
+    const docHtml = window
+      .html_beautify(document.documentElement.outerHTML, {
+        indent_inner_html: true,
+        indent_size: 2,
+        wrap_line_length: 0,
+      })
+      .replace(/<br>/gim, '\n');
+    const flexBox = document.createElement('div');
+    const preBlock = document.createElement('pre');
+    const codeBlock = document.createElement('code');
+    const checkBox = document.createElement('input');
+    const labelTag = document.createElement('label');
+    const main = document.getElementsByTagName('main')[0];
+    const footer = document.querySelector('.page-footer');
 
     preBlock.className = 'prettyprint linenums';
     preBlock.appendChild(codeBlock);
