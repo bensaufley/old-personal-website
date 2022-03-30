@@ -6,12 +6,12 @@ title: Résumé
 
 ## Experience
 
-**Triplebyte** _2021 – Present_  
+**[Triplebyte](https://triplebyte.com)** _2021 – Present_  
 **Software Engineer** _Remote_
 
 <p style="text-align: center;">&bullet;</p>
 
-**EverQuote, Inc** _2013 – 2021_  
+**[EverQuote, Inc](https://everquote.com)** _2013 – 2021_  
 **Principal Engineer** _Cambridge, MA_ &rarr; _Remote (Aug 2019)_
 
 Previously:
