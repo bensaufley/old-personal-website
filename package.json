@@ -10,7 +10,7 @@
     "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
     "del": "^6.0.0",
-    "eslint": "^8.2.0",
+    "eslint": "^8.23.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.2",
@@ -35,9 +35,10 @@
     "gulp-sort": "^2.0.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.0",
+    "inflection": "^1.13.2",
     "js-yaml": "^4.1.0",
     "merge-stream": "^2.0.0",
-    "mkdirp-promise": "^5.0.1",
+    "mkdirp": "^1.0.4",
     "moment": "^2.18.1",
     "mz": "^2.7.0",
     "prettier": "^2.6.1",
@@ -49,7 +50,7 @@
     "vinyl": "^2.2.1"
   },
   "engines": {
-    "node": ">= 8.4.0"
+    "node": ">= 18.7.0"
   },
   "scripts": {
     "deploy": "NODE_ENV=production gulp deploy",
