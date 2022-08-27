@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-const express = require('express');
+import express from 'express';
 
-const config = require('./config');
+import config from './config';
 
 const server = express();
 

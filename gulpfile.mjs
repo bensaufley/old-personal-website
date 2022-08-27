@@ -1,35 +1,42 @@
 // @ts-check
 /* eslint-disable no-console */
-const autoprefixer = require('gulp-autoprefixer');
-const babel = require('gulp-babel');
-const cleanCss = require('gulp-clean-css');
-const debug = require('gulp-debug');
-const del = require('del');
-const { sync: globSync } = require('glob');
-const fs = require('fs');
-const gulp = require('gulp');
-const gulpIf = require('gulp-if');
-const yaml = require('js-yaml');
-const layout = require('gulp-layout');
-const refresh = require('gulp-refresh');
-const markdown = require('gulp-markdown');
-const path = require('path');
-const prompt = require('gulp-prompt');
-const pug = require('gulp-pug');
-const rename = require('gulp-rename');
-const rsync = require('gulp-rsync');
-const sass = require('gulp-sass')(require('sass'));
-const sort = require('gulp-sort');
-const sourceMaps = require('gulp-sourcemaps');
-const uglify = require('gulp-uglify');
+import autoprefixer from 'gulp-autoprefixer';
+import babel from 'gulp-babel';
+import cleanCss from 'gulp-clean-css';
+import debug from 'gulp-debug';
+import del from 'del';
+import glob from 'glob';
+import fs from 'fs';
+import gulp from 'gulp';
+import gulpIf from 'gulp-if';
+import yaml from 'js-yaml';
+import layout from 'gulp-layout';
+import refresh from 'gulp-refresh';
+import markdown from 'gulp-markdown';
+import path from 'path';
+import prompt from 'gulp-prompt';
+import pug from 'gulp-pug';
+import rename from 'gulp-rename';
+import rsync from 'gulp-rsync';
+import gulpSass from 'gulp-sass';
+import sass from 'sass';
+import sort from 'gulp-sort';
+import sourceMaps from 'gulp-sourcemaps';
+import uglify from 'gulp-uglify';
 
-const config = require('./config');
-const posts = require('./lib/posts');
-const throughGrayMatter = require('./lib/through-gray-matter');
+import config from './config.mjs';
+import * as posts from './lib/posts.mjs';
+import throughGrayMatter from './lib/through-gray-matter.mjs';
+
+const { sync: globSync } = glob;
 
 const createErrorHandler = () => (err) => {
   console.error('Error in compress task', err.toString(), err.stack);
 };
+
+/**
+ * @param {Array<NodeJS.ReadWriteStream | import('stream').Transform | import('event-stream').MapStream>} pipes
+ */
 const customPump = (pipes) => pipes.reduce((obj, fn) => obj.pipe(fn).on('error', createErrorHandler()));
 
 const cleanSets = {
@@ -141,7 +148,7 @@ gulp.task(
     customPump([
       gulp.src(['source/assets/styles/**/*.scss', '!source/assets/styles/**/_*.scss']),
       gulpIf(process.env.NODE_ENV === 'development', sourceMaps.init()),
-      sass(),
+      gulpSass(sass)(),
       autoprefixer({
         grid: 'autoplace',
         remove: false,
