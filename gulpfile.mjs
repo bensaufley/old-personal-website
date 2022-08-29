@@ -126,7 +126,7 @@ gulp.task(
         const data = file.frontMatter;
         const ext = path.extname(file.path);
         const link = file.path.substr(file.base.length, file.path.length - file.base.length - ext.length);
-        return { data: { ...data, link: `/${link}/` }, layout: 'source/layouts/blog-listing.pug' };
+        return { data: { ...data, link: `${link}/` }, layout: 'source/layouts/blog-listing.pug' };
       }),
       posts.paginate(perPage),
       debug({ title: 'posts.paginated' }),

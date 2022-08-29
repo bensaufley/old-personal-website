@@ -45,3 +45,23 @@ nav.pagination {
     }
   }
 }
+
+sup.footnote {
+  a:link,
+  a:visited {
+    border: none;
+  }
+}
+
+a.footnote-return {
+  &:link,
+  &:visited {
+    border: none;
+    font-size: .75rem;
+    vertical-align: top;
+
+    @media print {
+      display: none;
+    }
+  }
+}
