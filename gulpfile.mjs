@@ -214,7 +214,9 @@ gulp.task(
   gulp.series('compile', () => {
     if (process.env.NODE_ENV !== 'production') throw new Error('Only deploy Production code.');
 
-    const ftpCreds = /** @type {{ username: string; password: string; destination: string; }} */ (
+    // hostname is ssh host; destination is path to directory to sync.
+    // Use SSH to authenticate and add to ssh-agent.
+    const ftpCreds = /** @type {{ username: string; hostname: string; destination: string; }} */ (
       yaml.load(fs.readFileSync('./.sftp.yml', 'utf-8'), { schema: yaml.FAILSAFE_SCHEMA })
     );
 
@@ -228,6 +230,7 @@ gulp.task(
         clean: true,
         dryrun: true,
         root: config.distDirectory,
+        exclude: ['.well-known', '.well-known/**'],
         ...ftpCreds,
       }),
       prompt.confirm({
@@ -241,6 +244,7 @@ gulp.task(
         recursive: true,
         clean: true,
         root: config.distDirectory,
+        exclude: ['.well-known', '.well-known/**'],
         ...ftpCreds,
       }),
     ]);
