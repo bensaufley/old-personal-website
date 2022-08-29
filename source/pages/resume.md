@@ -7,7 +7,7 @@ title: Résumé
 ## Experience
 
 **[Triplebyte](https://triplebyte.com)** _2021 – Aug 2022_  
-**Software Engineer** _Remote_
+**Senior Software Engineer** _Remote_
 
 Part of a small team of experienced full-stack product engineers in a cross-disciplinary squad that works to conceive, build, ship, analyze, and refine new features for the developing Screen product in Ruby on Rails and React with TypeScript.
 
