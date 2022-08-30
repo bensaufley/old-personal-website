@@ -1,14 +1,16 @@
-// @ts-check
 import { marked } from 'marked';
 import day from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat.js';
 import path from 'path';
 import through from 'through2';
 import Vinyl from 'vinyl';
+import type vinyl from 'vinyl';
 
 day.extend(advancedFormat);
 
-export const catchThrough = (func) =>
+type Callback = (err?: Error | null | undefined, chunk?: vinyl) => void;
+
+export const catchThrough = (func: (chunk: vinyl, cb: Callback) => void) =>
   through.obj((chunk, _, callback) => {
     try {
       func(chunk, callback);
@@ -36,7 +38,7 @@ export const excerpt = () =>
 
 export const extractFootnotes = () =>
   catchThrough((chunk, callback) => {
-    let footnotes = [];
+    let footnotes: string[] = [];
     let contents = String(chunk.contents);
 
     if (!/\[ref\]/.test(contents)) {
@@ -69,10 +71,10 @@ export const parseDate = () =>
 // Heavily influenced by gulp-paginate
 
 export const paginate = (perPage = 5) => {
-  let posts = [];
+  let posts: string[] = [];
   let pageCount = 0;
 
-  const generatePage = (callback) => {
+  const generatePage = (callback: Callback) => {
     const newFile = new Vinyl();
     const page = posts.join('');
     const name = pageCount === 0 ? 'index.html' : `blog/${pageCount + 1}/index.html`;
@@ -102,15 +104,11 @@ export const paginate = (perPage = 5) => {
       }
     },
     (callback) => {
-      try {
-        if (posts.length) {
-          generatePage(callback);
-          return;
-        }
-        callback();
-      } catch (err) {
-        callback(err);
+      if (posts.length) {
+        generatePage(callback);
+        return;
       }
+      callback();
     },
   );
 };

@@ -1,4 +1,3 @@
-// @ts-check
 const { rules: bestPracticeRules } = require('eslint-config-airbnb-base/rules/best-practices');
 
 /** @type {import('eslint').Linter.Config} */

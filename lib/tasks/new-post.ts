@@ -1,4 +1,3 @@
-// @ts-check
 import day from 'dayjs';
 import path from 'path';
 import { dasherize } from 'inflection';
@@ -23,5 +22,5 @@ try {
   writeFileSync(`${filePath}/${slug}.md`, Buffer.from(content));
   console.log('Done');
 } catch (err) {
-  console.error('Encountered error when writing file:', err.toString());
+  console.error('Encountered error when writing file:', (err as Error).toString());
 }
