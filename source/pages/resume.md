@@ -2,14 +2,14 @@
 title: Résumé
 ---
 
-# Résumé <small>([pdf](/images/2022-08-resume-ben-saufley.pdf))</small>
+# Résumé <small>([pdf](/images/2022-09-resume-ben-saufley.pdf))</small>
 
 ## Experience
 
 **[Triplebyte](https://triplebyte.com)** _2021 – Aug 2022_  
 **Senior Software Engineer** _Remote_
 
-Part of a small team of experienced full-stack product engineers in a cross-disciplinary squad that works to conceive, build, ship, analyze, and refine new features for the developing Screen product in Ruby on Rails and React with TypeScript.
+Part of a small team of experienced full-stack product engineers in a cross-disciplinary squad that worked to conceive, build, ship, analyze, and refine new features for the developing Screen product in Ruby on Rails and React with TypeScript.
 
 <p style="text-align: center;">~</p>
 
@@ -18,11 +18,11 @@ Part of a small team of experienced full-stack product engineers in a cross-disc
 
 Previously:
 
-- **Director of UX Engineering** _Aug 2017 – Jan 2019_
-- **Technical Lead, UX** _Jan 2015 – Aug 2017_
+- **Director, Front-End Engineering** _Aug 2017 – Jan 2019_
+- **Technical Lead** _Jan 2015 – Aug 2017_
 - **Web Designer & Front-End Developer** _2013 – Jan 2015_
 
-Software engineer, beginning as a designer/developer and growing into a full-stack subject matter expert for a large portion of the company’s consumer-facing infrastructure. Provided technical leadership, code review and standards, career growth support, and architectural leadership. Lead the development of two microservices that replaced the front end of the Rails monolith, significantly improving performance, using Go and React with TypeScript; and helped to lay the foundations and launch Kotlin-based third-party APIs with embeddable React widgets.
+Software engineer, beginning as a designer/developer and growing into a full-stack subject matter expert for a large portion of the company’s consumer-facing code and infrastructure. Provided technical leadership, code review and standards, career growth support, and architectural leadership. Lead the development of two microservices that replaced the front end of the Rails monolith, significantly improving performance, using Go and isomorphic React with TypeScript; and helped to lay the foundations and launch Kotlin-based third-party APIs with embeddable React widgets.
 
 <p style="text-align: center;">~</p>
 
@@ -45,10 +45,12 @@ Sole in-house developer and digital designer, working in collaboration with prin
 
 ## Skills
 
-**Languages:** Proficient in Go, Node.js, TypeScript/JavaScript, MySQL, Postgres, HTML (HAML, Pug, Slim), CSS (SASS, PostCSS), PHP, Ruby, and shell. Experience with Kotlin, Java, Swift and MongoDB.
+**Languages:** Proficient in Go, Node.js, TypeScript/JavaScript, MySQL, Postgres, HTML (HAML, Pug, Slim), CSS (SASS, PostCSS), PHP, Ruby, and bash/zsh. Experience with Kotlin, Java, Python, Swift and MongoDB.
 
-**Frameworks and Libraries:** Proficient in Webpack and Babel, React/Preact/JSX, Styled Components, Redux, Jest, Next.js, Mocha/Chai, jQuery, Ruby on Rails, Rspec/Capybara, Wordpress, Express.js and Sinatra. Experience in Spring and Ktor.
+**Software:**
 
-**Software:** Proficient in Adobe Creative Cloud suite, Sketch, Figma, Git, Windows and Mac environments, Docker and Kubernetes, AWS and GCP. Develop in Visual Studio Code, RubyMine, and Xcode for Swift. Analytics in DataDog and Grafana via Prometheus. Office suites are no problem. Use vim when handy, but no hjkl – arrow keys exist for a reason.
+Proficient in Webpack and Babel, React/Preact/JSX, Styled Components, Redux, Jest, Next.js, Mocha/Chai, jQuery, Ruby on Rails, Rspec/Capybara, Wordpress, Express.js and Sinatra. Experience in Spring and Ktor.
+
+Proficient in Git, Windows and Mac environments, Docker and Kubernetes, AWS and GCP. Manage infrastructure via web UIs and CLI as well as Helm and Terraform. Develop in Visual Studio Code, RubyMine, and Xcode for Swift. Analytics in DataDog and Grafana via Prometheus & Loki. Design in Adobe Creative Cloud suite, Sketch, Figma. Office suites are no problem. Use vim when handy, but no hjkl – arrow keys exist for a reason.
 
 References availablue [upon request](/contact)
