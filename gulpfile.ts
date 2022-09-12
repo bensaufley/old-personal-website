@@ -15,6 +15,7 @@ import markdown from 'gulp-markdown';
 import path from 'path';
 import prompt from 'gulp-prompt';
 import pug from 'gulp-pug';
+import terser from 'gulp-terser';
 import rename from 'gulp-rename';
 import rsync from 'gulp-rsync';
 import gulpSass from 'gulp-sass';
@@ -164,10 +165,10 @@ gulp.task(
   'scripts',
   gulp.series('clean-scripts', () =>
     customPump([
-      gulp.src('source/assets/scripts/**/*.js'),
+      gulp.src(['source/assets/scripts/**/*.js', 'source/assets/scripts/**/*.ts']),
       gulpIf(process.env.NODE_ENV === 'development', sourceMaps.init()),
       babel(),
-      uglify(),
+      terser(),
       gulpIf(process.env.NODE_ENV === 'development', sourceMaps.write()),
       gulp.dest(`${config.distDirectory}/scripts`),
       refresh(),

@@ -1,11 +1,15 @@
 import day from 'dayjs';
 import path from 'path';
-import { dasherize } from 'inflection';
+import inflection from 'inflection';
 import { mkdirSync, writeFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const title = process.argv[2] || 'New Post';
 const date = day(process.argv[3]);
-const slug = dasherize(title.toLocaleLowerCase());
+const slug = inflection.dasherize(title.toLocaleLowerCase());
 const filePath = path.resolve(__dirname, `../../source/posts/${date.format('YYYY/MM')}`);
 const readablePath = path.relative(path.resolve(__dirname, '../..'), filePath);
 
