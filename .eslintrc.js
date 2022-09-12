@@ -1,3 +1,4 @@
+// @ts-check
 const { rules: bestPracticeRules } = require('eslint-config-airbnb-base/rules/best-practices');
 
 /** @type {import('eslint').Linter.Config} */
@@ -6,7 +7,6 @@ module.exports = {
     browser: true,
     es6: true,
     node: true,
-    module: true,
   },
   extends: ['airbnb-base', 'plugin:prettier/recommended'],
   parserOptions: {
