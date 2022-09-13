@@ -26,7 +26,7 @@ import type { MapStream } from 'event-stream';
 import type vinyl from 'vinyl';
 
 import config from './config';
-import * as posts from './lib/posts';
+import { excerpt, extractFootnotes, paginate, parseDate, renameSinglePost } from './lib/posts';
 import throughGrayMatter from './lib/through-gray-matter';
 
 const { sync: globSync } = glob;
@@ -51,9 +51,9 @@ const cleanSets = {
   images: `${config.distDirectory}/images`,
 };
 const isType = (ext: string) => (file: vinyl) => path.extname(file.relative) === ext;
-const viewStream = () => [
+const viewStream = (index = false) => [
   throughGrayMatter(),
-  gulpIf(isType('.md'), posts.extractFootnotes()),
+  gulpIf(isType('.md'), extractFootnotes(index)),
   gulpIf(isType('.md'), markdown()),
   gulpIf(isType('.pug'), pug()),
 ];
@@ -95,9 +95,9 @@ gulp.task(
       gulp.src('source/posts/**/*.*'),
       debug({ title: 'posts.show' }),
       ...viewStream(),
-      posts.parseDate(),
+      parseDate(),
       layout(({ frontMatter: data = {} }) => ({ data, layout: 'source/layouts/blog-post.pug' })),
-      posts.renameSinglePost(),
+      renameSinglePost(),
       gulp.dest(config.distDirectory),
       refresh(),
     ]),
@@ -113,9 +113,9 @@ gulp.task(
     return customPump([
       gulp.src('source/posts/**/*.*'),
       debug({ title: 'posts.index' }),
-      posts.excerpt(),
-      ...viewStream(),
-      posts.parseDate(),
+      excerpt(),
+      ...viewStream(true),
+      parseDate(),
       sort((file1, file2) => {
         if (file1.frontMatter.date < file2.frontMatter.date) return 1;
         if (file1.frontMatter.date > file2.frontMatter.date) return -1;
@@ -127,7 +127,7 @@ gulp.task(
         const link = file.path.substr(file.base.length, file.path.length - file.base.length - ext.length);
         return { data: { ...data, link: `${link}/` }, layout: 'source/layouts/blog-listing.pug' };
       }),
-      posts.paginate(perPage),
+      paginate(perPage),
       debug({ title: 'posts.paginated' }),
       layout((file: vinyl) => {
         const currentPage = file.path.split('/')[0] === 'index.html' ? 1 : Number(file.path.split('/')[1]);

@@ -1,12 +1,10 @@
 import { marked } from 'marked';
-import day from 'dayjs';
-import advancedFormat from 'dayjs/plugin/advancedFormat.js';
-import path from 'path';
+import path, { basename, extname } from 'path';
 import through from 'through2';
 import Vinyl from 'vinyl';
 import type vinyl from 'vinyl';
 
-day.extend(advancedFormat);
+import day from './day';
 
 type Callback = (err?: Error | null | undefined, chunk?: vinyl) => void;
 
@@ -36,7 +34,7 @@ export const excerpt = () =>
     callback(null, chunk);
   });
 
-export const extractFootnotes = () =>
+export const extractFootnotes = (index = false) =>
   catchThrough((chunk, callback) => {
     let footnotes: string[] = [];
     let contents = String(chunk.contents);
@@ -49,17 +47,23 @@ export const extractFootnotes = () =>
     contents = contents.replace(/\[ref\](.+?)\[\/ref\]/gim, (_, footnote) => {
       footnotes = [...footnotes, footnote];
       const fnI = footnotes.length;
-      return `<sup class="footnote" id="#footnote-ref-${fnI}">[${fnI}](#footnote-${fnI})</sup>`;
+      const date = day.tz(chunk.frontMatter.date);
+      return `<a class="footnote" id="footnote-ref-${fnI}" href="/${date.format('YYYY/MM')}/${basename(
+        chunk.basename,
+        extname(chunk.basename),
+      )}/#footnote-${fnI}">${fnI}</a>`;
     });
 
-    contents = `${contents.trim()}\n\n<ol class="footnotes">${footnotes
-      .map(
-        (footnote, i) =>
-          `<li id="footnote-${i + 1}">${marked(
-            `${footnote.replace(/\n+$/, '')} <a href="#footnote-ref-${i + 1}" class="footnote-return">⤴</a>`,
-          ).trim()}</li>`,
-      )
-      .join('')}</ol>`;
+    if (!index) {
+      contents = `${contents.trim()}\n\n<ol class="footnotes">${footnotes
+        .map(
+          (footnote, i) =>
+            `<li id="footnote-${i + 1}">${marked(
+              `${footnote.replace(/\n+$/, '')} <a href="#footnote-ref-${i + 1}" class="footnote-return">⤴</a>`,
+            ).trim()}</li>`,
+        )
+        .join('')}</ol>`;
+    }
 
     chunk.contents = Buffer.from(contents);
     callback(null, chunk);
@@ -67,7 +71,7 @@ export const extractFootnotes = () =>
 
 export const parseDate = () =>
   catchThrough((chunk, callback) => {
-    const timestamp = day(chunk.frontMatter.date);
+    const timestamp = day.tz(chunk.frontMatter.date);
     if (!timestamp.isValid()) throw new Error('Posts need a proper date!');
     chunk.frontMatter.date = timestamp;
     callback(null, chunk);

@@ -46,10 +46,13 @@ nav.pagination {
   }
 }
 
-sup.footnote {
-  a:link,
-  a:visited {
+a:link,
+a:visited {
+  &.footnote {
     border: none;
+    font-size: .75em;
+    line-height: 0;
+    vertical-align: super;
   }
 }
 
