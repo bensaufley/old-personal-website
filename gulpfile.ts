@@ -22,7 +22,6 @@ import gulpSass from 'gulp-sass';
 import sass from 'sass';
 import sort from 'gulp-sort';
 import sourceMaps from 'gulp-sourcemaps';
-import uglify from 'gulp-uglify';
 import type { Transform } from 'stream';
 import type { MapStream } from 'event-stream';
 import type vinyl from 'vinyl';
@@ -168,7 +167,12 @@ gulp.task(
       gulp.src(['source/assets/scripts/**/*.js', 'source/assets/scripts/**/*.ts']),
       gulpIf(process.env.NODE_ENV === 'development', sourceMaps.init()),
       babel(),
-      terser(),
+      terser({
+        compress: true,
+        ie8: false,
+        mangle: true,
+        sourceMap: process.env.NODE_ENV === 'development',
+      }),
       gulpIf(process.env.NODE_ENV === 'development', sourceMaps.write()),
       gulp.dest(`${config.distDirectory}/scripts`),
       refresh(),

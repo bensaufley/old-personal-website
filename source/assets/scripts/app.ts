@@ -1,3 +1,16 @@
+import { html_beautify } from 'js-beautify';
+import webfontloader from 'webfontloader';
+
+declare global {
+  interface Window {
+    html_beautify: typeof html_beautify;
+    PR: {
+      prettyPrint: () => void;
+    };
+    webFont: typeof webfontloader;
+  }
+}
+
 {
   const buildCodeView = () => {
     document.documentElement.classList.add('js');
@@ -15,7 +28,7 @@
     const checkBox = document.createElement('input');
     const labelTag = document.createElement('label');
     const main = document.getElementsByTagName('main')[0];
-    const footer = document.querySelector('.page-footer');
+    const footer = document.querySelector('.page-footer')!;
 
     preBlock.className = 'prettyprint linenums';
     preBlock.appendChild(codeBlock);
@@ -43,15 +56,9 @@
     document.body.insertBefore(labelTag, flexBox);
   };
 
-  const onReady = () => {
+  document.addEventListener('DOMContentLoaded', () => {
     buildCodeView();
 
     window.WebFont.load({ google: { families: ['Lato:300,300i,700,700i'] } });
-  };
-
-  if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
-    onReady();
-  } else {
-    document.addEventListener('DOMContentLoaded', onReady);
-  }
+  });
 }
