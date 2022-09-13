@@ -53,7 +53,12 @@ export const extractFootnotes = () =>
     });
 
     contents = `${contents.trim()}\n\n<ol class="footnotes">${footnotes
-      .map((footnote, i) => `<li id="footnote-${i + 1}">${marked(`${footnote.replace(/\n+$/, '')} <a href="#footnote-ref-${i + 1}" class="footnote-return">⤴</a>`).trim()}</li>`)
+      .map(
+        (footnote, i) =>
+          `<li id="footnote-${i + 1}">${marked(
+            `${footnote.replace(/\n+$/, '')} <a href="#footnote-ref-${i + 1}" class="footnote-return">⤴</a>`,
+          ).trim()}</li>`,
+      )
       .join('')}</ol>`;
 
     chunk.contents = Buffer.from(contents);

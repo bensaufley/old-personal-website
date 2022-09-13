@@ -19,10 +19,7 @@ declare module 'gulp-markdown' {
 
 declare module 'gulp-prompt' {
   interface Prompt {
-    confirm<T = boolean>(opts: {
-      message?: string;
-      default?: T;
-    }): NodeJS.ReadWriteStream;
+    confirm<T = boolean>(opts: { message?: string; default?: T }): NodeJS.ReadWriteStream;
   }
   const task: Prompt;
   export default task;

@@ -1,5 +1,5 @@
-import { html_beautify } from 'js-beautify';
-import webfontloader from 'webfontloader';
+import type { html_beautify } from 'js-beautify';
+import type webfontloader from 'webfontloader';
 
 declare global {
   interface Window {

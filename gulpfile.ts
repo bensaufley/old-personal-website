@@ -36,7 +36,8 @@ const createErrorHandler = () => (err: Error) => {
   console.error('Error in compress task', err.toString(), err.stack);
 };
 
-const customPump = (pipes: (NodeJS.ReadWriteStream | Transform | MapStream)[]) => pipes.reduce((obj, fn) => obj.pipe(fn).on('error', createErrorHandler()));
+const customPump = (pipes: (NodeJS.ReadWriteStream | Transform | MapStream)[]) =>
+  pipes.reduce((obj, fn) => obj.pipe(fn).on('error', createErrorHandler()));
 
 const cleanSets = {
   pages: [
@@ -220,10 +221,11 @@ gulp.task(
 
     // hostname is ssh host; destination is path to directory to sync.
     // Use SSH to authenticate and add to ssh-agent.
-    const ftpCreds =
-      yaml.load(fs.readFileSync('./.sftp.yml', 'utf-8'), { schema: yaml.FAILSAFE_SCHEMA }) as {
-        username: string; hostname: string; destination: string;
-      };
+    const ftpCreds = yaml.load(fs.readFileSync('./.sftp.yml', 'utf-8'), { schema: yaml.FAILSAFE_SCHEMA }) as {
+      username: string;
+      hostname: string;
+      destination: string;
+    };
 
     return customPump([
       gulp.src(`${config.distDirectory}/**`),
