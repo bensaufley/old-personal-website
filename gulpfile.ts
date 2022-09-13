@@ -1,5 +1,3 @@
-// @ts-check
-/* eslint-disable no-console */
 import autoprefixer from 'gulp-autoprefixer';
 import babel from 'gulp-babel';
 import cleanCss from 'gulp-clean-css';
@@ -16,28 +14,29 @@ import markdown from 'gulp-markdown';
 import path from 'path';
 import prompt from 'gulp-prompt';
 import pug from 'gulp-pug';
+import terser from 'gulp-terser';
 import rename from 'gulp-rename';
 import rsync from 'gulp-rsync';
 import gulpSass from 'gulp-sass';
 import sass from 'sass';
 import sort from 'gulp-sort';
 import sourceMaps from 'gulp-sourcemaps';
-import uglify from 'gulp-uglify';
+import type { Transform } from 'stream';
+import type { MapStream } from 'event-stream';
+import type vinyl from 'vinyl';
 
-import config from './config.mjs';
-import * as posts from './lib/posts.mjs';
-import throughGrayMatter from './lib/through-gray-matter.mjs';
+import config from './config';
+import * as posts from './lib/posts';
+import throughGrayMatter from './lib/through-gray-matter';
 
 const { sync: globSync } = glob;
 
-const createErrorHandler = () => (err) => {
+const createErrorHandler = () => (err: Error) => {
   console.error('Error in compress task', err.toString(), err.stack);
 };
 
-/**
- * @param {Array<NodeJS.ReadWriteStream | import('stream').Transform | import('event-stream').MapStream>} pipes
- */
-const customPump = (pipes) => pipes.reduce((obj, fn) => obj.pipe(fn).on('error', createErrorHandler()));
+const customPump = (pipes: (NodeJS.ReadWriteStream | Transform | MapStream)[]) =>
+  pipes.reduce((obj, fn) => obj.pipe(fn).on('error', createErrorHandler()));
 
 const cleanSets = {
   pages: [
@@ -51,7 +50,7 @@ const cleanSets = {
   scripts: `${config.distDirectory}/scripts`,
   images: `${config.distDirectory}/images`,
 };
-const isType = (ext) => (file) => path.extname(file.relative) === ext;
+const isType = (ext: string) => (file: vinyl) => path.extname(file.relative) === ext;
 const viewStream = () => [
   throughGrayMatter(),
   gulpIf(isType('.md'), posts.extractFootnotes()),
@@ -122,7 +121,7 @@ gulp.task(
         if (file1.frontMatter.date > file2.frontMatter.date) return -1;
         return 0;
       }),
-      layout((file) => {
+      layout((file: vinyl) => {
         const data = file.frontMatter;
         const ext = path.extname(file.path);
         const link = file.path.substr(file.base.length, file.path.length - file.base.length - ext.length);
@@ -130,7 +129,7 @@ gulp.task(
       }),
       posts.paginate(perPage),
       debug({ title: 'posts.paginated' }),
-      layout((file) => {
+      layout((file: vinyl) => {
         const currentPage = file.path.split('/')[0] === 'index.html' ? 1 : Number(file.path.split('/')[1]);
         return { data: { title: 'Blog', pageCount, currentPage }, layout: 'source/layouts/blog-index.pug' };
       }),
@@ -165,10 +164,15 @@ gulp.task(
   'scripts',
   gulp.series('clean-scripts', () =>
     customPump([
-      gulp.src('source/assets/scripts/**/*.js'),
+      gulp.src(['source/assets/scripts/**/*.js', 'source/assets/scripts/**/*.ts']),
       gulpIf(process.env.NODE_ENV === 'development', sourceMaps.init()),
       babel(),
-      uglify(),
+      terser({
+        compress: true,
+        ie8: false,
+        mangle: true,
+        sourceMap: process.env.NODE_ENV === 'development',
+      }),
       gulpIf(process.env.NODE_ENV === 'development', sourceMaps.write()),
       gulp.dest(`${config.distDirectory}/scripts`),
       refresh(),
@@ -216,9 +220,11 @@ gulp.task(
 
     // hostname is ssh host; destination is path to directory to sync.
     // Use SSH to authenticate and add to ssh-agent.
-    const ftpCreds = /** @type {{ username: string; hostname: string; destination: string; }} */ (
-      yaml.load(fs.readFileSync('./.sftp.yml', 'utf-8'), { schema: yaml.FAILSAFE_SCHEMA })
-    );
+    const ftpCreds = yaml.load(fs.readFileSync('./.sftp.yml', 'utf-8'), { schema: yaml.FAILSAFE_SCHEMA }) as {
+      username: string;
+      hostname: string;
+      destination: string;
+    };
 
     return customPump([
       gulp.src(`${config.distDirectory}/**`),
@@ -251,4 +257,4 @@ gulp.task(
   }),
 );
 
-gulp.task('default', gulp.task('compile'));
+gulp.task('default', gulp.task('compile')!);
