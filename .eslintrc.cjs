@@ -15,7 +15,7 @@ const noParamReassign = /** @type {any} */ (bestPracticeRules['no-param-reassign
 /** @type {import('eslint').Linter.Config} */
 const config = {
   env: {
-    browser: true,
+    browser: false,
     es6: true,
     node: true,
   },
@@ -42,6 +42,7 @@ const config = {
         allow: ['html_beautify'],
       },
     ],
+    'no-console': 'off',
     'no-param-reassign': [
       /** @type {import('eslint').Linter.RuleLevel} */ (bestPracticeRules['no-param-reassign'][0]),
       {

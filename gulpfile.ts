@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import autoprefixer from 'gulp-autoprefixer';
 import babel from 'gulp-babel';
 import cleanCss from 'gulp-clean-css';
