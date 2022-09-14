@@ -2,7 +2,7 @@ import autoprefixer from 'gulp-autoprefixer';
 import babel from 'gulp-babel';
 import cleanCss from 'gulp-clean-css';
 import debug from 'gulp-debug';
-import del from 'del';
+import { deleteAsync } from 'del';
 import glob from 'glob';
 import fs from 'fs';
 import gulp from 'gulp';
@@ -61,10 +61,10 @@ const viewStream = (index = false) => [
 Error.stackTraceLimit = Infinity;
 
 Object.entries(cleanSets).forEach(([setName, srces]) => {
-  gulp.task(`clean-${setName}`, () => del(srces));
+  gulp.task(`clean-${setName}`, () => deleteAsync(srces));
 });
 
-gulp.task('clean', () => del(`${config.distDirectory}/*`));
+gulp.task('clean', () => deleteAsync(`${config.distDirectory}/*`));
 
 gulp.task(
   'pages',
