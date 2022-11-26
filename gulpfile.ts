@@ -12,7 +12,6 @@ import layout from 'gulp-layout';
 import refresh from 'gulp-refresh';
 import markdown from 'gulp-markdown';
 import path from 'path';
-import prompt from 'gulp-prompt';
 import pug from 'gulp-pug';
 import terser from 'gulp-terser';
 import rename from 'gulp-rename';
@@ -218,6 +217,8 @@ gulp.task(
   gulp.series('compile', () => {
     if (process.env.NODE_ENV !== 'production') throw new Error('Only deploy Production code.');
 
+    const dryrun = !process.argv.includes('--exec');
+
     // hostname is ssh host; destination is path to directory to sync.
     // Use SSH to authenticate and add to ssh-agent.
     const ftpCreds = yaml.load(fs.readFileSync('./.sftp.yml', 'utf-8'), { schema: yaml.FAILSAFE_SCHEMA }) as {
@@ -225,6 +226,12 @@ gulp.task(
       hostname: string;
       destination: string;
     };
+
+    if (dryrun) {
+      console.log('Dry run. Use --exec to actually deploy.');
+    } else {
+      console.warn('Deploying to production!');
+    }
 
     return customPump([
       gulp.src(`${config.distDirectory}/**`),
@@ -234,21 +241,7 @@ gulp.task(
         emptyDirectories: true,
         recursive: true,
         clean: true,
-        dryrun: true,
-        root: config.distDirectory,
-        exclude: ['.well-known', '.well-known/**'],
-        ...ftpCreds,
-      }),
-      prompt.confirm({
-        message: 'Are you SURE you want to deploy to production?',
-        default: false,
-      }),
-      rsync({
-        progress: true,
-        incremental: true,
-        emptyDirectories: true,
-        recursive: true,
-        clean: true,
+        dryrun,
         root: config.distDirectory,
         exclude: ['.well-known', '.well-known/**'],
         ...ftpCreds,
