@@ -53,4 +53,4 @@ Proficient in Webpack and Babel, React/Preact/JSX, Styled Components, Redux, Jes
 
 Proficient in Git, Windows and Mac environments, Docker and Kubernetes, AWS and GCP. Manage infrastructure via web UIs and CLI as well as Helm and Terraform. Develop in Visual Studio Code, RubyMine, and Xcode for Swift. Analytics in DataDog and Grafana via Prometheus & Loki. Design in Adobe Creative Cloud suite, Sketch, Figma. Office suites are no problem. Use vim when handy, but no hjkl – arrow keys exist for a reason.
 
-References availablue [upon request](/contact)
+References available [upon request](/contact)
