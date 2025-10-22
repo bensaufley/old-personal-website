@@ -1,3 +1,7 @@
+# Archived Oct 2025
+
+This is no longer the repo for my personal website; this was a prior incarnation.
+
 # [BenSaufley.com](http://bensaufley.com)
 
 This is the git repo for my personal website. It's pretty bare-bones at the moment, but it's better than the Wordpress site that had been stagnating in its place since at least 2013.
